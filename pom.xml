@@ -19,7 +19,7 @@
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>7.4.1</version>
+            <version>7.1.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
@@ -56,7 +56,7 @@
             <artifactId>cucumber-reporting</artifactId>
             <version>5.5.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports-cucumber4-adapter -->
+
         <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports-->
         <dependency>
             <groupId>com.aventstack</groupId>
@@ -77,8 +77,6 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
     <build>
         <plugins>
