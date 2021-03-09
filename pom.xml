@@ -33,12 +33,6 @@
             <artifactId>cucumber-java</artifactId>
             <version>6.8.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>6.8.1</version>
-        </dependency>
         <dependency>
             <groupId>com.vimalselvam</groupId>
             <artifactId>cucumber-extentsreport</artifactId>
@@ -61,9 +55,18 @@
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.0.6</version>
+            <version>5.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.0-alpha1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.0-alpha1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber6-adapter -->
         <dependency>
@@ -121,7 +124,7 @@
                             <projectName>AppiumTemplate</projectName>
                             <skip>false</skip>
                             <buildNumber>1</buildNumber>
-                            <outputDirectory>target/cucumber-report/advanced-report</outputDirectory>
+                            <outputDirectory>target/cucumber-report</outputDirectory>
                             <inputDirectory>target/cucumber-report</inputDirectory>
                             <classificationDirectory>${project.build.directory}/target/cucumber-report</classificationDirectory>
                             <checkBuildResult>false</checkBuildResult>
