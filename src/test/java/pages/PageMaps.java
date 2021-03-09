@@ -33,5 +33,27 @@ public class PageMaps extends BasePage{
     public MobileElement searchInput;
 
 
+    public void goToMyLocation() throws Exception {
+        try{
+
+            skip.click();
+            Thread.sleep(3000);
+
+            if (isElementPresent(findLocation)){
+                findLocation.click();
+            }else{
+                centerButon.click();
+            }
+
+            Thread.sleep(3000);
+            permision.click();
+            Thread.sleep(10000);
+        }
+        catch(Exception e)
+        {
+            throw new Exception("Element not found :" + e.getMessage());
+        }
+    }
+
 
 }

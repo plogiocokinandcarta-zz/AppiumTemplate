@@ -1,6 +1,7 @@
 package utils;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,7 +13,6 @@ import io.appium.java_client.MobileElement;
 
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
 import org.openqa.selenium.OutputType;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.TakesScreenshot;
@@ -49,7 +49,7 @@ public class Driver {
                 driver = new AndroidDriver<>(new URL(properties.getProperty("appiumIP")),capabilities);
             }
             else{
-                SetCapabilitiesAndroidIos();
+                SetCapabilitiesIos();
                 driver = new IOSDriver<>(new URL(properties.getProperty("IosStuff")),capabilities);
             }
 
@@ -80,7 +80,7 @@ public class Driver {
         capabilities.setCapability("customFindModules", customFindModules);
         capabilities.setCapability("shouldUseCompactResponses", false);
     }
-    private void SetCapabilitiesAndroidIos() {
+    private void SetCapabilitiesIos() {
         capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,properties.getProperty("platform"));
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
@@ -112,9 +112,11 @@ public class Driver {
     public static void Screenshot(Scenario snr)  {
 
         try{
-            //String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+
             byte[] ts =  driver.getScreenshotAs(OutputType.BYTES);
-            snr.attach(ts, "image/png","error");
+            snr.attach(ts, "image/png","screenshot");
+
+
 
         }
         catch(Exception e){ e.printStackTrace();}

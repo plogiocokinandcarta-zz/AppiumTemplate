@@ -1,7 +1,6 @@
 package steps;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -9,11 +8,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.Scenario;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.OutputType;
 import pages.PageMaps;
 import utils.Driver;
-import java.io.IOException;
+
 
 
 
@@ -38,27 +35,16 @@ public class MyStepdefs {
 
 
     @Given("the google maps app on appium")
-    public void theGoogleMapsAppOnAppium() throws InterruptedException {
+    public void theGoogleMapsAppOnAppium() throws Exception {
         Thread.sleep(5000);
         maps = new PageMaps(driver);
-        try{
-
-            maps.skip.click();
-            Thread.sleep(3000);
-            //maps.findLocation.click();
-            maps.centerButon.click();
-            Thread.sleep(3000);
-            maps.permision.click();
-            Thread.sleep(10000);
-        }
-        catch(Exception e)
-        {throw e;}
+        maps.goToMyLocation();
 
     }
 
     @When("search {string}")
     public void search(String arg0) {
-        driver.findElementByCustom("ai:search").sendKeys(arg0);
+       // driver.findElementByCustom("ai:search").sendKeys(arg0);
 
 
 

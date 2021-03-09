@@ -3,6 +3,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 import utils.Driver;
 
@@ -41,5 +42,16 @@ public class BasePage {
         } while (!element.getText().contains(input) && ++attempts < MAX_ATTEMPTS);
 
         return element.getText().contains(input);
+    }
+
+
+
+    protected boolean isElementPresent(MobileElement element) {
+        try {
+            element.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
