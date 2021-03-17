@@ -1,25 +1,25 @@
-package utils;
-import java.io.File;
+package utils;;
 import java.io.IOException;
-import java.net.URI;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-
 import io.appium.java_client.ios.IOSDriver;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.html5.Location;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class Driver {
 
@@ -29,7 +29,9 @@ public class Driver {
     private DesiredCapabilities capabilities;
     private static DateFormat df;
 
-    private void LoadProperties() {
+
+
+    private void loadProperties() {
         try {
             PropertyLoader propertyLoader = new PropertyLoader();
             properties = propertyLoader.getPropValues("config.properties");
@@ -40,30 +42,30 @@ public class Driver {
     }
 
     private Driver() {
-        LoadProperties();
+        loadProperties();
 
         try {
             if (properties.getProperty("platform").toUpperCase().equals("ANDROID"))
             {
-                SetCapabilitiesAndroid();
+                setCapabilitiesAndroid();
                 driver = new AndroidDriver<>(new URL(properties.getProperty("appiumIP")),capabilities);
             }
             else{
-                SetCapabilitiesIos();
+                setCapabilitiesIos();
                 driver = new IOSDriver<>(new URL(properties.getProperty("IosStuff")),capabilities);
             }
-
-
-            Location location = new Location(41.902652, -87.701975, 1000);
-            driver.setLocation(location);
-
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    private void SetCapabilitiesAndroid() {
+
+    private void setWebCapabilities(){
+
+    }
+
+    private void setCapabilitiesAndroid() {
         capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,properties.getProperty("platform"));
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
@@ -80,7 +82,7 @@ public class Driver {
         capabilities.setCapability("customFindModules", customFindModules);
         capabilities.setCapability("shouldUseCompactResponses", false);
     }
-    private void SetCapabilitiesIos() {
+    private void setCapabilitiesIos() {
         capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,properties.getProperty("platform"));
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
@@ -109,14 +111,13 @@ public class Driver {
     }
 
 
-    public static void Screenshot(Scenario snr)  {
+
+    public static void screenshot(Scenario snr)  {
 
         try{
 
             byte[] ts =  driver.getScreenshotAs(OutputType.BYTES);
             snr.attach(ts, "image/png","screenshot");
-
-
 
         }
         catch(Exception e){ e.printStackTrace();}
@@ -127,5 +128,26 @@ public class Driver {
     public static Properties getProperties() {
         return properties;
     }
+
+
+    public static void  changeLocation(double latitud, double longitude){
+        Location location = new Location(latitud, longitude, 1000);
+        driver.setLocation(location);
+    }
+
+    public static void setUpBandwidth(int downloadSpeed, int uploadSpeed,boolean offline) throws IOException {
+        CommandExecutor executor = ((RemoteWebDriver) driver).getCommandExecutor();
+
+        Map map = new HashMap();
+        map.put("offline", offline);
+        map.put("latency", 5);
+        map.put("download_throughput", downloadSpeed);
+        map.put("upload_throughput", uploadSpeed);
+        Response response = executor.execute(new Command(((RemoteWebDriver) driver).getSessionId(), "setNetworkConditions",
+                ImmutableMap.of("network_conditions", ImmutableMap.copyOf(map))));
+
+    }
+
+
     //endregion
 }

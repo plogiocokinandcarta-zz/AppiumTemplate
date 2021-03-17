@@ -14,11 +14,11 @@ import org.junit.runner.RunWith;
         glue = "steps",
         plugin = {
                 "pretty",
-                "html:target/cucumber-report/cucumber-html-report.html",
-                "json:target/cucumber-report/cucumber.json",
-                "junit:target/cucumber-report/cucumber.xml",
-                "usage:target/cucumber-report/cucumber-usage.json",
-                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+                "html:target/cucumber-reports/cucumber-html-report.html",
+                "json:target/cucumber-reports/cucumber.json",
+                "junit:target/cucumber-reports/cucumber.xml",
+                "usage:target/cucumber-reports/cucumber-usage.json"
         }
 )
 
